@@ -1,4 +1,4 @@
-# Inter-Chain Residue Distance Analysis from PDB Structures
+# Crosslinking Residue Pair Distance Analysis from PDB Structures
 
 This script measures selected inter-chain residue distances from a set of PDB structures using MDAnalysis.
 
