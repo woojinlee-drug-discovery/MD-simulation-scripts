@@ -1,10 +1,10 @@
-# Crosslinking Residue Pair Distance Analysis from PDB Structures
+# Crosslinking Residue Pair Distance Analysis and Yield-Based Visualization
 
-This script measures selected inter-chain residue distances from a set of PDB structures using MDAnalysis.
+This workflow measures selected inter-chain residue distances from a set of PDB structures using MDAnalysis, then parses those distance files, matches residue pairs to experimental yield values, and generates subset-specific distance plots colored by yield.
 
 ## Description
 
-The script:
+The workflow:
 
 - loads multiple PDB files in a specified order
 - processes each structure individually
@@ -12,56 +12,37 @@ The script:
 - selects either `CA` or `CB` atoms depending on the residue
 - converts residue names from three-letter codes to one-letter codes for reporting
 - writes all measured distances to a separate text file for each input PDB
+- reads multiple distance `.txt` files in the current directory
+- skips the experimental yield file itself
+- parses residue-pair distance values from each distance file
+- parses experimental yield percentages from `experimental_yields.txt`
+- maps residue pairs to predefined subsets:
+  - **ICL**
+  - **C-terminus**
+- generates horizontal strip plots of distance distributions
+- colors each residue pair according to its associated experimental yield
+- saves one PNG file for each subset and input file
 
 ## Input Files
 
-The script expects the following PDB files:
+The workflow expects the following input files:
 
+### PDB files
 - `m134_final.pdb`
 - `m162_final.pdb`
 - `m164_final.pdb`
 - `m181_final.pdb`
 
-## Output Files
+### Required yield file
+- `experimental_yields.txt`
 
-The script generates one output text file per PDB:
-
+### Distance files
 - `distance_values_1.txt`
 - `distance_values_2.txt`
 - `distance_values_3.txt`
 - `distance_values_4.txt`
 
-Each output file contains the distance measurements for the corresponding input PDB structure.
-
-## What the Script Measures
-
-The script calculates distances between selected residue pairs defined in `atom_pairs`.
-
-- Residues are measured across:
-  - `segid A`
-  - `segid B`
-
-- Atom selection rule:
-  - use `CA` for residues `5`, `286`, and `313`
-  - use `CB` for all other residues
-
-## Output Format
-
-Each output file includes:
-
-- the name of the processed PDB file
-- frame number
-- residue identifiers
-- one-letter amino acid codes
-- atom names
-- chain information
-- measured distance in Å
-
-Example output:
+The distance files are expected to contain lines formatted like:
 
 ```text
-Processing m134_final.pdb
-
-===== Frame 0 =====
 Resid 281 (X-CB, Chain A) -> Resid 152 (Y-CB, Chain B) : 8.532 Å
-Resid 282 (X-CB, Chain A) -> Resid 152 (Y-CB, Chain B) : 7.941 Å
