@@ -6,6 +6,8 @@ This repository contains molecular dynamics analysis scripts used for GPCR simul
 
 - C-alpha distance analysis
 - RMSD analysis
+- Ligand RMSD analysis
+- Center-of-mass (COM) distance analysis
 - RMSF analysis
 - Ion interaction analysis
 - 3D ion distribution visualization
